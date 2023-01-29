@@ -1,0 +1,226 @@
+-- Put yor parser implementation in this file
+module ParserImpl where
+
+import Definitions
+-- import ReadP or Parsec
+import Text.ParserCombinators.ReadP
+import Control.Applicative ((<|>))
+import Data.Char
+
+type Parser a = ReadP a
+
+type ParseError = String
+
+-- General Grammar After Left Recursion Elimination
+-- Spec ::= preamble ERules.
+-- ERules ::= ERule | ERule ERules.
+-- ERule :: LHS "::=" Alts ".".
+-- LHS ::= name OptType | "_".
+-- OptType ::= | "{:" htext "}".
+-- Alts ::= Seq | Seq "|" Alts.
+-- Seq ::= Simple | Simplez "{" htext "}".
+-- Simplez ::= | Simple Simplez.
+-- Simple ::= Simple0 | Simple0 "?" | Simple0 "*" | "!" Simple0.
+-- Simple0 ::= Atom Simple0'.
+-- Simple0' ::= | "{?" htext "}" Simple0'.
+-- Atom ::= name | tokLit | "@" | charLit | "(" Alts ")".
+
+
+-- Reference: Shared Notes from "Parsernotes.pdf"
+space :: Parser Char
+space = satisfy isSpace
+spaces :: Parser String
+spaces = many space
+spaces1 :: Parser String
+spaces1 = many1 space
+
+token :: Parser a -> Parser a
+token p = spaces >> p
+
+symbol :: String -> Parser String
+symbol = token . string
+schar :: Char -> Parser Char
+schar = token . char
+
+-- Spec ::= preamble ERules.
+parseSpec :: String -> EM (String, EGrammar)
+parseSpec str = case readP_to_S (do
+  preamble <- parsePreamble
+  eRules <- erules
+  eof
+  return (preamble, eRules)) str of
+  [(x, "")] -> return x
+  _ -> Left "Parse error"
+
+spec :: Parser EGrammar
+spec = do
+    skipSpaces
+    parsePreamble
+    erules
+
+
+
+-- ERules ::= ERule | ERule ERules.
+erules :: Parser [ERule]
+erules = do
+            skipSpaces    
+            e <- erule
+            es <- erules
+            return (e:es)
+        <|> return []
+
+-- ERule :: LHS "::=" Alts ".".
+erule :: Parser ERule
+erule = do
+            (l1,l2,l3) <- lhs
+            symbol "::="
+            a <- alts
+            schar '.'
+            return ((l1,l2,l3),a)
+
+-- LHS ::= name OptType | "_".
+lhs :: Parser RLHS
+lhs = do
+        n <- name
+        o <- optType
+        if isUpper (head n) 
+            then return (n, RPlain, o)
+            else return (n, RToken, o)
+    <|> do
+        skipSpaces
+        symbol "_"
+        return ("_",RSep,Nothing)
+
+-- OptType ::= | "{:" htext "}".
+optType :: Parser (Maybe Type)
+optType = do
+            schar '{'
+            schar ':'
+            h <- htext
+            schar '}'
+            return (Just (AUser h))
+        <|> return Nothing
+
+
+-- Alts ::= Seq | Seq "|" Alts.
+alts :: Parser ERHS
+alts = do
+        parseSeq
+       <|> do
+        skipSpaces
+        s <- parseSeq
+        symbol "|"
+        EBar s <$> alts
+
+
+-- Seq ::= Simple | Simplez "{" htext "}".
+parseSeq :: Parser ERHS
+parseSeq = do
+        s <- simplez
+        schar '{'
+        h <- htext
+        schar '}'
+        return (ESeq s h)
+    <|> simple
+
+-- Simplez ::= | Simple Simplez.
+simplez :: Parser [ERHS]
+simplez = do
+            s <- simple
+            ss <- simplez
+            return (s:ss)
+        <|> return []
+
+-- Simple ::= Simple0 | Simple0 "?" | Simple0 "*" | "!" Simple0.
+simple :: Parser ERHS
+simple = do
+            s <- simple0
+            schar '?'
+            return (EOption s)
+        <|> do
+            s <- simple0
+            schar '*'
+            return (EMany s)
+        <|> do
+            schar '!'
+            ENot <$> simple0
+        <|> simple0
+
+-- Simple0 ::= Atom Simple0'.
+simple0 :: Parser ERHS
+simple0 = do
+            a <- atom
+            simple0' a
+
+-- Simple0' ::= | "{?" htext "}" Simple0'.
+simple0' :: ERHS -> Parser ERHS
+simple0' a = do
+                schar '{'
+                schar '?'
+                h <- munch isPrint
+                schar '}'
+                simple0' (EPred a h)
+            <|> return a
+
+
+-- Atom ::= name | tokLit | "@" | charLit | "(" Alts ")".
+atom :: Parser ERHS
+atom = do
+        ESimple . SNTerm <$> name
+    <|> do
+        ESimple . SLit <$> tokLit
+    <|> at
+    <|> do
+        ESimple . SChar <$> charLit
+    <|> do
+        schar '('
+        a <- alts
+        schar ')'
+        return a
+
+name :: Parser String
+name = token(do
+        skipSpaces
+        c <- satisfy isLetter
+        cs <- munch (\c -> isLetter c || isDigit c || c == '_')
+        return (c:cs))
+
+tokLit :: Parser String
+tokLit = do
+        schar '"'
+        s <- tokLit' []
+        schar '"'
+        return s
+
+tokLit' :: String -> Parser String
+tokLit' s = do
+        c <- satisfy isPrint
+        case c of
+            '"' -> do
+                schar '"'
+                tokLit' (s ++ [c])
+            _ -> tokLit' (s ++ [c])
+        <|> return s
+
+charLit :: Parser Char
+charLit = do
+            schar '\''
+            c <- satisfy isPrint
+            schar '\''
+            return c
+
+at :: Parser ERHS
+at = do
+        schar '@'
+        return (ESimple SAnyChar)
+
+htext :: Parser String
+htext = token (munch (/= '}'))
+
+parsePreamble :: Parser String
+parsePreamble = do
+    p <- munch (/= '-')
+    symbol "---\n"
+    return p
+
+

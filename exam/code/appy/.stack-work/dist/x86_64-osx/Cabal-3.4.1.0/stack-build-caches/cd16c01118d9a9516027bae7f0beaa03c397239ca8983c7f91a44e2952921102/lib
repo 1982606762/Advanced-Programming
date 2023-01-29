@@ -1,0 +1,22 @@
+/Users/xuanlang/study/hskell/exam/code/appy/src/Definitions.hs:
+  hash: ed3bfeed2a360855a8741c99ba50960e05a5241b06303e1eb86081bdcf5e1720
+/Users/xuanlang/.stack/programs/x86_64-osx/ghc-9.0.2/lib/ghc-9.0.2/lib/x86_64-osx-ghc-9.0.2/rts-1.0.2/include/ghcversion.h:
+  hash: 3b6c0f16983344ce12525816947d892da98bc96f17a664531494f515b9356c81
+/Users/xuanlang/study/hskell/exam/code/appy/package.yaml:
+  hash: 4b223fd16881ef28d28b065e00851d565ac1fdf4a188593a40a9bbb9fd7cd872
+/Users/xuanlang/study/hskell/exam/code/appy/.stack-work/dist/x86_64-osx/Cabal-3.4.1.0/build/autogen/Paths_appy.hs:
+  hash: 09e1e338a11d2d26a6148ac2e4f6e1781418b586fbc10522300d346f8296bb6d
+/Users/xuanlang/study/hskell/exam/code/appy/.stack-work/dist/x86_64-osx/Cabal-3.4.1.0/build/autogen/cabal_macros.h:
+  hash: a61df9e62947dd24cbc87d1b782628194110c3d12aa604d784fb1700a147282a
+/Users/xuanlang/study/hskell/exam/code/appy/appy.cabal:
+  hash: f99a5a4f6697f2b0fe4daadd60e25ad806bb2f9777337b74f5aa80467295aaa4
+/Users/xuanlang/study/hskell/exam/code/appy/src/TransformerImpl.hs:
+  hash: c77b5a2672858429e25edf7b7d85f1c51f766dd0f5173a55cf25adda12c28689
+/Users/xuanlang/study/hskell/exam/code/appy/src/Transformer.hs:
+  hash: 9f02cb17fe16717f07d5c56dc920c9a896942904227fd78cf24260b5707c601f
+/Users/xuanlang/study/hskell/exam/code/appy/src/Generator.hs:
+  hash: 395585b58df2042aa9d4c1f8e49a1d7c47efc68c9e6ae12ac64f2d36a494ec87
+/Users/xuanlang/study/hskell/exam/code/appy/src/ParserImpl.hs:
+  hash: 2bc36a8887cae277585cd660806332b62e94cfc11d919dc9ca6bb2661d2db484
+/Users/xuanlang/study/hskell/exam/code/appy/src/Parser.hs:
+  hash: 0915565f64fac32ee23e99675e190645203c510b11965c7b4a60c29641a58872

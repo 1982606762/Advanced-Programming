@@ -1,0 +1,14 @@
+/Users/xuanlang/.stack/programs/x86_64-osx/ghc-9.0.2/lib/ghc-9.0.2/lib/x86_64-osx-ghc-9.0.2/rts-1.0.2/include/ghcversion.h:
+  hash: 3b6c0f16983344ce12525816947d892da98bc96f17a664531494f515b9356c81
+? /Users/xuanlang/study/hskell/assignments/1/code/part2/.stack-work/dist/x86_64-osx/Cabal-3.4.1.0/build/autogen/Paths_arithmetic.hs
+: hash: 3e7351213743bd71435b7651f75d137dc17dcb5aee81ec28b88d93d5f76ee3c3
+/Users/xuanlang/study/hskell/assignments/1/code/part2/package.yaml:
+  hash: 8a0bbe1bbcc1238771401e042cbdbef7f812b216fdd8c7fc0d494c1dd700ad1e
+/Users/xuanlang/study/hskell/assignments/1/code/part2/arithmetic.cabal:
+  hash: 6c80fd32c6fd008a27293db96443000f1ed463c76cc4791e082a5caa9461c26a
+/Users/xuanlang/study/hskell/assignments/1/code/part2/.stack-work/dist/x86_64-osx/Cabal-3.4.1.0/build/autogen/cabal_macros.h:
+  hash: 994b91bd7a923d0b49cfe441231b787b6377fcc30d5c1cdf718dc22145ecd79d
+/Users/xuanlang/study/hskell/assignments/1/code/part2/src/Arithmetic.hs:
+  hash: 1014635ca9071726de99dfe69afd72af83421d49b18f8c591c53fe8395789cb7
+/Users/xuanlang/study/hskell/assignments/1/code/part2/src/Definitions.hs:
+  hash: d3bcb7af2e754729a5175e3aa4b781e0ad2bb50bb0a80067775d76e323057982

@@ -1,0 +1,12 @@
+/Users/xuanlang/.stack/programs/x86_64-osx/ghc-9.0.2/lib/ghc-9.0.2/lib/x86_64-osx-ghc-9.0.2/rts-1.0.2/include/ghcversion.h:
+  hash: 3b6c0f16983344ce12525816947d892da98bc96f17a664531494f515b9356c81
+/Users/xuanlang/study/hskell/assignments/2/code/part2/package.yaml:
+  hash: 1a5691b9abc62b5528599d789ded817a1747fdd0d709043c4b7682b7a2e9032c
+/Users/xuanlang/study/hskell/assignments/2/code/part2/boa.cabal:
+  hash: 2a4fa12614048d136d240a4ef73410fba5d6db0e14bb43031f7c5fd7eb862540
+? /Users/xuanlang/study/hskell/assignments/2/code/part2/.stack-work/dist/x86_64-osx/Cabal-3.4.1.0/build/my-test-suite/autogen/cabal_macros.h
+: hash: b747ff2ce4c9b7f3b43f72faa5181ef364a024186935aad9edefadc9835b93d0
+/Users/xuanlang/study/hskell/assignments/2/code/part2/tests/Test.hs:
+  hash: b0d581e166fc38d6cb49f4374b68bee576b9b03afe01902988e88199328fd25d
+? /Users/xuanlang/study/hskell/assignments/2/code/part2/.stack-work/dist/x86_64-osx/Cabal-3.4.1.0/build/my-test-suite/autogen/Paths_boa.hs
+: hash: 3099bfce4f6e29546cf4d6a4e37d9ddded1b94b7845bce9374240363a1296837
